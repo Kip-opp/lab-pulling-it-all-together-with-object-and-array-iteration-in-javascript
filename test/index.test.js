@@ -1,5 +1,23 @@
+// =======================================================
+// SETUP: Universal Compatibility (Node.js & Browser)
+// =======================================================
+var expect;
+if (typeof window !== 'undefined' && window.chai) {
+  // We are in the Browser -> Use global chai
+  expect = window.chai.expect;
+} else if (typeof require !== 'undefined') {
+  // We are in Node.js -> Require modules
+  expect = require('chai').expect;
+  // Import functions from index.js
+  var {
+    numPointsScored, shoeSize, teamColors, teamNames,
+    playerNumbers, playerStats, bigShoeRebounds
+  } = require('../index');
+}
+// =======================================================
+
 describe('Basketball Stats', function () {
-  
+
   describe('numPointsScored', function () {
     it('should return points scored by a player', function () {
       expect(numPointsScored('Alan Anderson')).to.equal(22);
@@ -13,14 +31,14 @@ describe('Basketball Stats', function () {
       expect(shoeSize('Ben Gordon')).to.equal(15);
     });
   });
-  
+
   describe('teamColors', function () {
     it('should return team colors', function () {
       expect(teamColors('Brooklyn Nets')).to.deep.equal(['Black', 'White']);
       expect(teamColors('Charlotte Hornets')).to.deep.equal(['Turquoise', 'Purple']);
     });
   });
-  
+
   describe('teamNames', function () {
     it('should return team names', function () {
       expect(teamNames()).to.deep.equal(['Brooklyn Nets', 'Charlotte Hornets']);
@@ -37,25 +55,10 @@ describe('Basketball Stats', function () {
   describe('playerStats', function () {
     it('should return stats of a player', function () {
       expect(playerStats('Alan Anderson')).to.deep.equal({
-        number: 0,
-        shoe: 16,
-        points: 22,
-        rebounds: 12,
-        assists: 12,
-        steals: 3,
-        blocks: 1,
-        slamDunks: 1
+        number: 0, shoe: 16, points: 22, rebounds: 12, assists: 12, steals: 3, blocks: 1, slamDunks: 1
       });
-
       expect(playerStats('Ben Gordon')).to.deep.equal({
-        number: 8,
-        shoe: 15,
-        points: 33,
-        rebounds: 3,
-        assists: 2,
-        steals: 1,
-        blocks: 1,
-        slamDunks: 0
+        number: 8, shoe: 15, points: 33, rebounds: 3, assists: 2, steals: 1, blocks: 1, slamDunks: 0
       });
     });
   });
